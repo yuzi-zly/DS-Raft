@@ -96,6 +96,8 @@ const(
 	ELECTION_TIMEOUT_MAX = 500
 	ELECTION_TIMEOUT_MIN = 200
 	HEARTBEAT_INTERVAL = 50
+
+	DEBUG = true
 )
 
 // GetState
@@ -155,7 +157,9 @@ type RequestVoteReply struct {
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	rf.Logger.Printf("I receive a RV from %v", args.CandidateId)
+	if DEBUG {
+		rf.Logger.Printf("I receive a RV from %v", args.CandidateId)
+	}
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
 	//过时请求，不予理睬
 	if args.Term < rf.CurrentTerm {
@@ -170,7 +174,9 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 			rf.VoteFor = -1
 			rf.ElectionTimer.Reset(RandomElectionTimeOut())
 			rf.persist()
-			rf.Logger.Printf("I am deprecated and change from a candidate to a follower\n")
+			if DEBUG {
+				rf.Logger.Printf("I am deprecated and change from a candidate to a follower\n")
+			}
 		}
 
 		if rf.Role == LEADER {
@@ -179,7 +185,9 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 			rf.VoteFor = -1
 			rf.ElectionTimer.Reset(RandomElectionTimeOut())
 			rf.persist()
-			rf.Logger.Printf("I am deprecated and change from the leader to a follower\n")
+			if DEBUG {
+				rf.Logger.Printf("I am deprecated and change from the leader to a follower\n")
+			}
 		}
 	}
 	//投票
@@ -188,11 +196,15 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		reply.Term = rf.CurrentTerm
 		reply.VoteGranted = true
 		rf.VoteFor = args.CandidateId
-		rf.Logger.Printf("I vote for %v", args.CandidateId)
+		if DEBUG {
+			rf.Logger.Printf("I vote for %v", args.CandidateId)
+		}
 	} else {
 		reply.Term = rf.CurrentTerm
 		reply.VoteGranted = false
-		rf.Logger.Printf("I don't vote for %v", args.CandidateId)
+		if DEBUG {
+			rf.Logger.Printf("I don't vote for %v", args.CandidateId)
+		}
 	}
 	rf.CurrentTerm = args.Term
 	rf.persist()
@@ -216,7 +228,9 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 // the struct itself.
 //
 func (rf *Raft) sendRequestVote(server int, args RequestVoteArgs, reply *RequestVoteReply) bool {
-	rf.Logger.Printf("I am in sendRV to %v", server)
+	if DEBUG {
+		rf.Logger.Printf("I am in sendRV to %v", server)
+	}
 	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
 	return ok
 }
@@ -244,7 +258,9 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	if rf.CurrentTerm <= args.Term {
-		rf.Logger.Printf("my Term %v and arg Term %v\n", rf.CurrentTerm, args.Term)
+		if DEBUG {
+			rf.Logger.Printf("my Term %v and arg Term %v\n", rf.CurrentTerm, args.Term)
+		}
 		rf.CurrentTerm = args.Term
 		rf.Role = FOLLOWER
 		rf.VoteFor = -1
@@ -253,7 +269,9 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 			rf.HeartBeatTicker.Stop()
 		}
 		rf.persist()
-		rf.Logger.Printf("I receive a HeartBeat from %v and become a follower\n", args.LeaderID)
+		if DEBUG {
+			rf.Logger.Printf("I receive a HeartBeat from %v and become a follower\n", args.LeaderID)
+		}
 	}
 
 
@@ -360,7 +378,9 @@ func (rf *Raft) DeadLoop() {
 // FollowerHandler
 // handle follower in dead loop
 func (rf *Raft) FollowerHandler(){
-	rf.Logger.Printf("I am in FollowerHandler with Term %v, VoteFor %v",rf.CurrentTerm, rf.VoteFor)
+	if DEBUG {
+		rf.Logger.Printf("I am in FollowerHandler with Term %v, VoteFor %v",rf.CurrentTerm, rf.VoteFor)
+	}
 	select {
 		case <- rf.ElectionTimer.C:
 			rf.CurrentTerm = rf.CurrentTerm + 1
@@ -368,14 +388,18 @@ func (rf *Raft) FollowerHandler(){
 			rf.VoteFor = -1
 			rf.ElectionTimer.Reset(RandomElectionTimeOut())
 			rf.persist()
-			rf.Logger.Printf("I change from a follower to a candidate\n")
+			if DEBUG {
+				rf.Logger.Printf("I change from a follower to a candidate\n")
+			}
 	}
 }
 
 // CandidateHandler
 // handle candidate in dead loop
 func (rf *Raft) CandidateHandler(){
-	rf.Logger.Printf("I am in CandidateHandler with Term %v", rf.CurrentTerm)
+	if DEBUG {
+		rf.Logger.Printf("I change from a follower to a candidate\n")
+	}
 	// vote for self
 	rf.VoteFor = rf.me
 	// send request vote
@@ -387,7 +411,9 @@ func (rf *Raft) CandidateHandler(){
 				rf.Role = LEADER
 				rf.HeartBeatTicker = time.NewTicker(HEARTBEAT_INTERVAL * time.Millisecond)
 				rf.persist()
-				rf.Logger.Printf("I change from a candidate to the leader\n")
+				if DEBUG {
+					rf.Logger.Printf("I change from a follower to a candidate\n")
+				}
 			}
 		case <-rf.ElectionTimer.C:
 			rf.ElectionTimer.Reset(RandomElectionTimeOut())
@@ -399,7 +425,9 @@ func (rf *Raft) CandidateHandler(){
 
 func (rf *Raft) sendRequestVotePreprocess(state *chan bool) {
 	//vote for self
-	rf.Logger.Printf("I am in sendRVPreprocess with Term %v", rf.CurrentTerm)
+	if DEBUG {
+		rf.Logger.Printf("I am in sendRVPreprocess with Term %v", rf.CurrentTerm)
+	}
 	cnt := 1
 	rf.RVReplyChan = make(chan *RequestVoteReply)
 	for server := range rf.peers {
@@ -434,7 +462,9 @@ func (rf *Raft) sendRequestVotePreprocess(state *chan bool) {
 			rf.ElectionTimer.Reset(RandomElectionTimeOut())
 			rf.persist()
 			*state <- false
-			rf.Logger.Printf("I am deprecated and change from a candidate to a follower\n")
+			if DEBUG {
+				rf.Logger.Printf("I am deprecated and change from a candidate to a follower\n")
+			}
 			finish = true
 		}
 		if replyPointer.VoteGranted {
@@ -490,7 +520,9 @@ func (rf *Raft) sendHeartBeatPreprocess(state *chan bool) {
 				rf.HeartBeatTicker.Stop()
 				rf.persist()
 				*state <- false
-				rf.Logger.Printf("I am deprecated and change from the leader to a follower\n")
+				if DEBUG {
+					rf.Logger.Printf("I am deprecated and change from the leader to a follower\n")
+				}
 				finish = true
 			}
 		}
