@@ -1,0 +1,797 @@
+Test: initial election ...
+[peer 1] 2021/11/25 22:41:45.294662 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+[peer 2] 2021/11/25 22:41:45.294730 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+[peer 0] 2021/11/25 22:41:45.294002 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+[peer 0] 2021/11/25 22:41:45.538751 raft.go:401: I change from a follower to a candidate
+[peer 0] 2021/11/25 22:41:45.539263 raft.go:412: I am in CandidateHandler
+[peer 0] 2021/11/25 22:41:45.539379 raft.go:447: I am in sendRVPreprocess with Term 1
+[peer 0] 2021/11/25 22:41:45.540498 raft.go:233: I am in sendRV to 2 with 1
+[peer 0] 2021/11/25 22:41:45.540946 raft.go:233: I am in sendRV to 1 with 1
+[peer 2] 2021/11/25 22:41:45.544568 raft.go:161: I receive a RV from 0 and I am 0
+[peer 2] 2021/11/25 22:41:45.544608 raft.go:200: I vote for 0
+[peer 1] 2021/11/25 22:41:45.544568 raft.go:161: I receive a RV from 0 and I am 0
+[peer 1] 2021/11/25 22:41:45.545536 raft.go:200: I vote for 0
+[peer 0] 2021/11/25 22:41:45.546181 raft.go:428: I change from a candidate to the leader
+[peer 2] 2021/11/25 22:41:45.599321 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.599424 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.599458 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.599512 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.646855 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.646868 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.646975 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.647204 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.698465 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.698471 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.698647 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.700152 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.748449 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.748540 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.748457 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.748676 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.797226 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.797326 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.797237 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.797460 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.847276 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.847309 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.847376 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.847456 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.898508 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.898513 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.898613 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.898685 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.948537 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.948559 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:45.948667 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:45.948755 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.998451 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.998485 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:45.998567 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:45.998996 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.048669 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.048807 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.048658 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.048920 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.098539 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.098666 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.098569 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.099050 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.148522 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.148533 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.148672 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.148725 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.198507 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.198624 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.198536 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.198760 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.248117 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.248232 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.248683 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.248762 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.298580 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.298654 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.298714 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.298793 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.348464 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.348464 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.348653 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.348586 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.397737 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.397877 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.397737 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.398018 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.448825 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.448824 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.449011 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.449091 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.498480 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.498594 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.498765 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.498851 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.548516 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.548566 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.548602 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.548655 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.598532 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.598534 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.598679 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.598885 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.648479 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.648584 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.648477 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.648704 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.697554 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.697556 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.697756 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.697708 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.748526 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.748645 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.748914 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.748978 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.798546 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.798552 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.798674 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.798756 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.848548 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.848670 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.848590 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.848790 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.897978 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.898079 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.898088 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.898145 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.948479 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.948611 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.948550 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.948739 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:46.998539 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:46.998798 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:46.998886 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:46.998950 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.046649 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.046677 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.046801 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.046730 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.098480 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.098601 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.098497 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.098717 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.148535 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.148647 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.148527 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.148747 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.198441 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.198562 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.198505 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.198675 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.248369 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.248460 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.248780 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.248870 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.298490 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.298592 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.298759 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.298818 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.348496 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.348541 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.348660 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.348598 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.398445 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.398558 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.398614 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.399250 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.448334 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.448452 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.448346 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.448558 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.498443 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.498448 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.498531 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.498607 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.548458 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.548475 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.548615 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.548547 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.598520 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.598637 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.598525 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.598754 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.648428 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.648466 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.648529 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.648592 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.698784 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.698877 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.698942 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.699003 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.747571 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.747697 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:47.747570 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.747822 raft.go:275: I receive a HeartBeat from 0 and become a follower
+  ... Passed
+[peer 1] 2021/11/25 22:41:47.798509 raft.go:264: my Term 1 and arg Term 1
+[peer 2] 2021/11/25 22:41:47.798540 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:47.798590 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:47.798673 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:47.799652 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+[peer 1] 2021/11/25 22:41:47.799754 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+[peer 2] 2021/11/25 22:41:47.799926 raft.go:389: I am in FollowerHandler with Term 0, VoteFor -1
+Test: election after network failure ...
+[peer 2] 2021/11/25 22:41:48.009057 raft.go:401: I change from a follower to a candidate
+[peer 2] 2021/11/25 22:41:48.009162 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:48.009215 raft.go:447: I am in sendRVPreprocess with Term 1
+[peer 2] 2021/11/25 22:41:48.012020 raft.go:233: I am in sendRV to 1 with 1
+[peer 2] 2021/11/25 22:41:48.012092 raft.go:233: I am in sendRV to 0 with 1
+[peer 1] 2021/11/25 22:41:48.012319 raft.go:161: I receive a RV from 2 and I am 0
+[peer 1] 2021/11/25 22:41:48.012343 raft.go:200: I vote for 2
+[peer 0] 2021/11/25 22:41:48.012380 raft.go:161: I receive a RV from 2 and I am 0
+[peer 0] 2021/11/25 22:41:48.012402 raft.go:200: I vote for 2
+[peer 2] 2021/11/25 22:41:48.012531 raft.go:428: I change from a candidate to the leader
+[peer 1] 2021/11/25 22:41:48.028038 raft.go:401: I change from a follower to a candidate
+[peer 1] 2021/11/25 22:41:48.028078 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:48.028112 raft.go:447: I am in sendRVPreprocess with Term 2
+[peer 1] 2021/11/25 22:41:48.028161 raft.go:233: I am in sendRV to 2 with 2
+[peer 1] 2021/11/25 22:41:48.028247 raft.go:233: I am in sendRV to 0 with 2
+[peer 2] 2021/11/25 22:41:48.028428 raft.go:161: I receive a RV from 1 and I am 0
+[peer 2] 2021/11/25 22:41:48.028456 raft.go:200: I vote for 1
+[peer 0] 2021/11/25 22:41:48.028502 raft.go:161: I receive a RV from 1 and I am 2
+[peer 0] 2021/11/25 22:41:48.028575 raft.go:189: I am deprecated and change from the leader to a follower
+[peer 0] 2021/11/25 22:41:48.028603 raft.go:200: I vote for 1
+[peer 1] 2021/11/25 22:41:48.028870 raft.go:428: I change from a candidate to the leader
+[peer 0] 2021/11/25 22:41:48.064952 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:48.064952 raft.go:264: my Term 1 and arg Term 1
+[peer 0] 2021/11/25 22:41:48.065089 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 1] 2021/11/25 22:41:48.065163 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 0] 2021/11/25 22:41:48.081388 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.081405 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.081513 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.081584 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.114085 raft.go:264: my Term 1 and arg Term 1
+[peer 0] 2021/11/25 22:41:48.114127 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:48.114186 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 0] 2021/11/25 22:41:48.114252 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 0] 2021/11/25 22:41:48.129510 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.129531 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.129588 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.129654 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.164932 raft.go:264: my Term 1 and arg Term 1
+[peer 0] 2021/11/25 22:41:48.165031 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 1] 2021/11/25 22:41:48.165128 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:48.165191 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 0] 2021/11/25 22:41:48.181169 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.181229 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.181282 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.181345 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.214876 raft.go:264: my Term 1 and arg Term 1
+[peer 0] 2021/11/25 22:41:48.214983 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 1] 2021/11/25 22:41:48.214886 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:48.215131 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 2] 2021/11/25 22:41:48.231164 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.231213 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.231281 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.231227 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.263598 raft.go:264: my Term 1 and arg Term 1
+[peer 0] 2021/11/25 22:41:48.263733 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 1] 2021/11/25 22:41:48.263616 raft.go:264: my Term 1 and arg Term 1
+[peer 1] 2021/11/25 22:41:48.263842 raft.go:275: I receive a HeartBeat from 2 and become a follower
+[peer 2] 2021/11/25 22:41:48.281168 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.281198 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.281271 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.281328 raft.go:275: I receive a HeartBeat from 1 and become a follower
+already disconnected 2
+[peer 0] 2021/11/25 22:41:48.331251 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.331373 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.331280 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.331505 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.381168 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.381249 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.381305 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.381365 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.431213 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.431211 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.431357 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.431394 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.479704 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.479773 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.479839 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.479810 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.492777 raft.go:401: I change from a follower to a candidate
+[peer 0] 2021/11/25 22:41:48.492849 raft.go:412: I am in CandidateHandler
+[peer 0] 2021/11/25 22:41:48.492886 raft.go:447: I am in sendRVPreprocess with Term 2
+[peer 0] 2021/11/25 22:41:48.493095 raft.go:233: I am in sendRV to 2 with 2
+[peer 0] 2021/11/25 22:41:48.493181 raft.go:233: I am in sendRV to 1 with 2
+[peer 1] 2021/11/25 22:41:48.493485 raft.go:161: I receive a RV from 0 and I am 0
+[peer 1] 2021/11/25 22:41:48.493516 raft.go:200: I vote for 0
+[peer 0] 2021/11/25 22:41:48.493819 raft.go:428: I change from a candidate to the leader
+[peer 0] 2021/11/25 22:41:48.531214 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.531259 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.531335 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.531396 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.546257 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.546355 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:48.581230 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.581230 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.581356 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.581387 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.595526 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.595581 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.631265 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.631349 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.631265 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.631410 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.646449 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.646615 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:48.680984 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.681812 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.681852 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.682029 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.694316 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.694407 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:48.729282 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.729311 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.729391 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.729472 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.744086 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.744131 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.779258 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.779277 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.779343 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.779409 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.794218 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.794292 raft.go:275: I receive a HeartBeat from 0 and become a follower
+connect again
+[peer 0] 2021/11/25 22:41:48.831150 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.831238 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.831177 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.831346 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.844837 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.844846 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.844916 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.844965 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.881155 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.881156 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.881242 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.881317 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.896129 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.896154 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.896283 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:48.896228 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.929555 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.929569 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.929683 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:48.929753 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:48.946118 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.946120 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.946185 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:48.946254 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:48.980225 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:48.980290 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.980306 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.980369 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:48.996112 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:48.996182 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:48.996122 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:48.996290 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:49.031227 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.031346 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.031247 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.031464 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:49.046111 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.046173 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:49.046099 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.047869 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:49.081269 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.081340 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.081419 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.081487 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.095736 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.095761 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.095806 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:49.095864 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:49.131160 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.131166 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.131266 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.131325 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.144397 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.144512 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:49.144975 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.145034 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:49.179188 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.179247 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.179401 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.179469 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.196195 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.196206 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.196337 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:49.196457 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 0] 2021/11/25 22:41:49.231212 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.231347 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.231220 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.231469 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:49.246039 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.246136 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:49.246046 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.246181 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 2] 2021/11/25 22:41:49.280791 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.280821 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.280954 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.280894 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.295603 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.295674 raft.go:275: I receive a HeartBeat from 0 and become a follower
+[peer 1] 2021/11/25 22:41:49.295620 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.295798 raft.go:275: I receive a HeartBeat from 0 and become a follower
+disconnect 0 and 1
+[peer 2] 2021/11/25 22:41:49.331244 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.331296 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.331420 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.331363 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.381179 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.381292 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.381190 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.381413 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.431191 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.431189 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.431335 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.431386 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.481221 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.481254 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.481422 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.481365 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.529854 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.529951 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.529867 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.530073 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.579442 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.579498 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.579588 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.579658 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.631239 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.631384 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.631238 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.631512 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.681238 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.681254 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.681417 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.681494 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.707280 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:49.707423 raft.go:447: I am in sendRVPreprocess with Term 3
+[peer 2] 2021/11/25 22:41:49.707473 raft.go:233: I am in sendRV to 1 with 3
+[peer 2] 2021/11/25 22:41:49.707523 raft.go:233: I am in sendRV to 0 with 3
+[peer 1] 2021/11/25 22:41:49.730980 raft.go:401: I change from a follower to a candidate
+[peer 1] 2021/11/25 22:41:49.731103 raft.go:412: I am in CandidateHandler
+[peer 0] 2021/11/25 22:41:49.731369 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.731370 raft.go:264: my Term 2 and arg Term 2
+[peer 1] 2021/11/25 22:41:49.731136 raft.go:447: I am in sendRVPreprocess with Term 3
+[peer 0] 2021/11/25 22:41:49.731435 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.731498 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:49.731555 raft.go:233: I am in sendRV to 2 with 3
+[peer 1] 2021/11/25 22:41:49.731710 raft.go:233: I am in sendRV to 0 with 3
+[peer 0] 2021/11/25 22:41:49.781168 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.781181 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.781290 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.781336 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.830922 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.831047 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.831206 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.831315 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.879658 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.879796 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.879688 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.879906 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.931173 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.931297 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.931181 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.931414 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:49.942444 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:49.942496 raft.go:447: I am in sendRVPreprocess with Term 4
+[peer 2] 2021/11/25 22:41:49.943366 raft.go:233: I am in sendRV to 1 with 4
+[peer 2] 2021/11/25 22:41:49.943445 raft.go:233: I am in sendRV to 0 with 4
+[peer 2] 2021/11/25 22:41:49.980373 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:49.980440 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:49.980378 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:49.980547 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.031188 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.031294 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.031205 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.031412 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:50.054172 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:50.054226 raft.go:447: I am in sendRVPreprocess with Term 4
+[peer 1] 2021/11/25 22:41:50.054274 raft.go:233: I am in sendRV to 2 with 4
+[peer 1] 2021/11/25 22:41:50.054348 raft.go:233: I am in sendRV to 0 with 4
+[peer 2] 2021/11/25 22:41:50.081203 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.081290 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.081207 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.081397 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.131137 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.131148 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.131223 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.131288 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.181170 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.181210 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.181256 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.181316 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.231162 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.231160 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.231275 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.231333 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:50.280907 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:50.280977 raft.go:447: I am in sendRVPreprocess with Term 5
+[peer 1] 2021/11/25 22:41:50.281038 raft.go:233: I am in sendRV to 2 with 5
+[peer 1] 2021/11/25 22:41:50.281117 raft.go:233: I am in sendRV to 0 with 5
+[peer 0] 2021/11/25 22:41:50.281187 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.281240 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.281388 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.281455 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.331137 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.331257 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.331143 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.331368 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.381114 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.381217 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.381257 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.381308 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.431134 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.431152 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.431208 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.431276 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.441990 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:50.442039 raft.go:447: I am in sendRVPreprocess with Term 5
+[peer 2] 2021/11/25 22:41:50.442094 raft.go:233: I am in sendRV to 1 with 5
+[peer 2] 2021/11/25 22:41:50.442170 raft.go:233: I am in sendRV to 0 with 5
+[peer 2] 2021/11/25 22:41:50.480612 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.480686 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.480626 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.480784 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.531203 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.531323 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.531223 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.531477 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.581162 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.581283 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.581292 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.581403 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.631208 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.631219 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.631343 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.631400 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:50.642228 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:50.642283 raft.go:447: I am in sendRVPreprocess with Term 6
+[peer 1] 2021/11/25 22:41:50.642344 raft.go:233: I am in sendRV to 2 with 6
+[peer 1] 2021/11/25 22:41:50.642420 raft.go:233: I am in sendRV to 0 with 6
+[peer 0] 2021/11/25 22:41:50.681203 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.681312 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.681433 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.681495 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.731241 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.731370 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.731262 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.731483 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.781234 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.781323 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.781241 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.781422 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.831171 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.831183 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.831319 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.831388 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.881265 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.881405 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.882751 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.882844 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.921073 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:50.921200 raft.go:447: I am in sendRVPreprocess with Term 6
+[peer 2] 2021/11/25 22:41:50.921274 raft.go:233: I am in sendRV to 1 with 6
+[peer 2] 2021/11/25 22:41:50.921357 raft.go:233: I am in sendRV to 0 with 6
+[peer 2] 2021/11/25 22:41:50.931154 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.931221 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.931160 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.931361 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:50.981313 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:50.981313 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:50.981485 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:50.981552 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.031342 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.031353 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.031474 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.031568 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:51.050159 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:51.050270 raft.go:447: I am in sendRVPreprocess with Term 7
+[peer 1] 2021/11/25 22:41:51.050372 raft.go:233: I am in sendRV to 2 with 7
+[peer 1] 2021/11/25 22:41:51.050461 raft.go:233: I am in sendRV to 0 with 7
+[peer 0] 2021/11/25 22:41:51.081221 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.081308 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.081706 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.081764 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.131225 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.131351 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.131289 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.131464 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.181226 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.181355 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.181234 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.181462 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.230766 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.230893 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.230789 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.231008 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.280638 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.280670 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.280775 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.280850 raft.go:275: I receive a HeartBeat from 1 and become a follower
+connect 1 back
+[peer 0] 2021/11/25 22:41:51.331347 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.331469 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.331351 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.331562 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.379451 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.379451 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.379640 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.379719 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.380091 raft.go:412: I am in CandidateHandler
+[peer 2] 2021/11/25 22:41:51.380139 raft.go:447: I am in sendRVPreprocess with Term 7
+[peer 2] 2021/11/25 22:41:51.380210 raft.go:233: I am in sendRV to 1 with 7
+[peer 2] 2021/11/25 22:41:51.380298 raft.go:233: I am in sendRV to 0 with 7
+[peer 1] 2021/11/25 22:41:51.380591 raft.go:161: I receive a RV from 2 and I am 1
+[peer 1] 2021/11/25 22:41:51.380626 raft.go:206: I don't vote for 2
+[peer 2] 2021/11/25 22:41:51.431156 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.431262 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.431189 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.432861 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.479272 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.479397 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.479272 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.479526 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.529267 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.529274 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.529370 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.529497 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.579238 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.579280 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.579369 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.579437 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.629190 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.629244 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.629309 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.629255 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.681194 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.681278 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.681215 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.681384 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.731159 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.731193 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.731253 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.731311 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.781165 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.781192 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.781292 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.781355 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 1] 2021/11/25 22:41:51.815002 raft.go:412: I am in CandidateHandler
+[peer 1] 2021/11/25 22:41:51.815086 raft.go:447: I am in sendRVPreprocess with Term 8
+[peer 1] 2021/11/25 22:41:51.815161 raft.go:233: I am in sendRV to 2 with 8
+[peer 1] 2021/11/25 22:41:51.815253 raft.go:233: I am in sendRV to 0 with 8
+[peer 2] 2021/11/25 22:41:51.815499 raft.go:161: I receive a RV from 1 and I am 1
+[peer 2] 2021/11/25 22:41:51.815559 raft.go:178: I am deprecated and change from a candidate to a follower
+[peer 2] 2021/11/25 22:41:51.815589 raft.go:200: I vote for 1
+[peer 1] 2021/11/25 22:41:51.815819 raft.go:428: I change from a candidate to the leader
+[peer 0] 2021/11/25 22:41:51.831161 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.831203 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.831222 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.831279 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.866912 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:51.867036 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.881138 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.881184 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.881206 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.881257 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.917624 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:51.917695 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.931160 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.931189 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.931224 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.931251 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.968113 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:51.968208 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:51.981130 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:51.981191 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:51.981524 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:51.981586 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.017202 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.017267 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.031213 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.031342 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.031266 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.031459 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.068213 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.068322 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.081182 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.081244 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.081459 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.081517 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.118211 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.118345 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.131129 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.131184 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.131223 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.131287 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.166163 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.166273 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.180188 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.180264 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.180603 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.180665 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.218124 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.218243 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.231184 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.231250 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.231271 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.231337 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.268149 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.268280 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.281187 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.281269 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.281302 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.281357 raft.go:275: I receive a HeartBeat from 1 and become a follower
+connect 0 back
+[peer 2] 2021/11/25 22:41:52.317344 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.317369 raft.go:264: my Term 2 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.317404 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.317438 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.331173 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.331194 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.331244 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.331311 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.368223 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.368345 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.368484 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.368540 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.381119 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.381132 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.381250 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.381195 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.417769 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.417835 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.417770 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.417945 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.430834 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.430953 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.430847 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.431074 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.468108 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.468125 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.468183 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.468240 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.481120 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.481127 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.481208 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.481277 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.516340 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.516364 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.516463 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.516522 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.530680 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.530777 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.530708 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.530900 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.568125 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.568202 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.568142 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.568325 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.581129 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.581188 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.582145 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.582202 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.618209 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.618209 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.618350 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.618397 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.631184 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.631197 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.631310 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.631411 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.667225 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.667362 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.667733 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.667797 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.680182 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.680186 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.680323 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.680386 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.717564 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.717593 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.717645 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.717717 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.731167 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.731256 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.731169 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.731349 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.768182 raft.go:264: my Term 8 and arg Term 8
+[peer 2] 2021/11/25 22:41:52.768317 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.768195 raft.go:264: my Term 8 and arg Term 8
+[peer 0] 2021/11/25 22:41:52.768433 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 2] 2021/11/25 22:41:52.781119 raft.go:264: my Term 2 and arg Term 2
+[peer 0] 2021/11/25 22:41:52.781148 raft.go:264: my Term 2 and arg Term 2
+[peer 2] 2021/11/25 22:41:52.781178 raft.go:275: I receive a HeartBeat from 1 and become a follower
+[peer 0] 2021/11/25 22:41:52.781207 raft.go:275: I receive a HeartBeat from 1 and become a follower
+  ... Passed
+PASS
+ok  	raft	7.739s
