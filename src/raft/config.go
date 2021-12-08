@@ -387,6 +387,7 @@ func (cfg *config) one(cmd int, expectedServers int) int {
 		index := -1
 		for si := 0; si < cfg.n; si++ {
 			starts = (starts + 1) % cfg.n
+			fmt.Printf("now %v\n", starts)
 			var rf *Raft
 			cfg.mu.Lock()
 			if cfg.connected[starts] {
@@ -395,6 +396,7 @@ func (cfg *config) one(cmd int, expectedServers int) int {
 			cfg.mu.Unlock()
 			if rf != nil {
 				index1, _, ok := rf.Start(cmd)
+				fmt.Printf("started %v with %v\n", starts, cmd)
 				if ok {
 					index = index1
 					break
@@ -408,6 +410,7 @@ func (cfg *config) one(cmd int, expectedServers int) int {
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
+				fmt.Printf("nd %v, cmd1 %v\n", nd, cmd1)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					if cmd2, ok := cmd1.(int); ok && cmd2 == cmd {
@@ -418,6 +421,7 @@ func (cfg *config) one(cmd int, expectedServers int) int {
 				time.Sleep(20 * time.Millisecond)
 			}
 		} else {
+			//fmt.Printf("no Leader\n")
 			time.Sleep(50 * time.Millisecond)
 		}
 	}

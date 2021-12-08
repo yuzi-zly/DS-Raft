@@ -112,25 +112,34 @@ func TestFailAgree(t *testing.T) {
 	fmt.Printf("Test: agreement despite follower failure ...\n")
 
 	cfg.one(101, servers)
+	fmt.Printf("send 101\n")
 
 	// follower network failure
 	leader := cfg.checkOneLeader()
 	cfg.disconnect((leader + 1) % servers)
+	fmt.Printf("%v is disconnect\n", (leader + 1) % servers)
 
 	// agree despite one failed server?
 	cfg.one(102, servers-1)
+	fmt.Printf("send 102\n")
 	cfg.one(103, servers-1)
+	fmt.Printf("send 103\n")
 	time.Sleep(RaftElectionTimeout)
 	cfg.one(104, servers-1)
+	fmt.Printf("send 104\n")
 	cfg.one(105, servers-1)
+	fmt.Printf("send 105\n")
 
 	// failed server re-connected
 	cfg.connect((leader + 1) % servers)
+	fmt.Printf("%v is connect\n", (leader + 1) % servers)
 
 	// agree with full set of servers?
 	cfg.one(106, servers)
+	fmt.Printf("send 106\n")
 	time.Sleep(RaftElectionTimeout)
 	cfg.one(107, servers)
+	fmt.Printf("send 107\n")
 
 	fmt.Printf("  ... Passed\n")
 }
