@@ -52,29 +52,27 @@ type Raft struct {
 	peers     		[]*labrpc.ClientEnd
 	persister 		*Persister
 	me        		int // index into peers[]
-	// Your data here.
-	// Look at the paper's Figure 2 for a description of what state a Raft server must maintain.
 	applyChan		*chan ApplyMsg
 
 	//persistent
-	CurrentTerm 	int
-	VoteFor 		int
-	Logs    		[]LogEntry
+	CurrentTerm 	int		//当前选举任期
+	VoteFor 		int		//获得该票的Candidate
+	Logs    		[]LogEntry	//日志
 	//volatile
-	CommitIndex		int
-	LastApplied		int
+	CommitIndex		int		//该节点最新提交的日志的Index
+	LastApplied		int		//该节点最新被提交到状态机上的日志的Index
 	//volatile on leaders
-	NextIndex		[]int
-	MatchIndex		[]int
+	NextIndex		[]int	//对于每一个节点，要发送到该节点的下一个日志的Index
+	MatchIndex		[]int	//对于每一个节点，已经与Leader相匹配的日志中最高的Index
 	//others
-	Role			int
-	ElectionTimer	*time.Timer
+	Role			int		//该server的状态：Follower，Candidate，Leader
+	ElectionTimer	*time.Timer	//ElectionTimer计时器
 
-	HBReplyVec		[]int
-	HBCheckTicker	*time.Ticker
+	HBReplyVec		[]int	//Leader专用：发出心跳信号后统计有多少节点接受了
+	HBCheckTicker	*time.Ticker //Leader专用：计时器，每隔一段时间去检测发出的心跳信号是否收到一半以上回复
 
-	RVReplyChan 	chan *RequestVoteReply
-	AEChans			[]chan bool
+	RVReplyChan 	chan *RequestVoteReply //Candidate专用：发出投票请求同步的信道
+	AEChans			[]chan bool	//用于start时给每个协程发送信号，告知协程可以发送日志
 	Logger          *log.Logger
 }
 
@@ -90,14 +88,14 @@ type LogEntry struct{
 const(
 	FOLLOWER  = 0
 	CANDIDATE = 1
-	LEADER	  = 2
+	LEADER	  = 2  //节点的三种状态
 
-	ELECTION_TIMEOUT_MAX = 400
-	ELECTION_TIMEOUT_MIN = 200
-	HEARTBEAT_INTERVAL = 100
-	HEARTBEAT_CHECK = 150
+	ELECTION_TIMEOUT_MAX = 400	//选举超时的上限
+	ELECTION_TIMEOUT_MIN = 200	//选举超时的下限
+	HEARTBEAT_INTERVAL = 100	//发送心跳信号的间隔
+	HEARTBEAT_CHECK = 150		//检测心跳信号回复的间隔
 
-	DEBUG = false
+	DEBUG = true
 )
 
 // GetState
@@ -139,8 +137,8 @@ func (rf *Raft) readPersist(data []byte) {
 // RequestVoteArgs
 // example RequestVote RPC arguments structure.
 type RequestVoteArgs struct {
-	Term 			int
-	CandidateId 	int
+	Term 			int		//Candidate的当前Term
+	CandidateId 	int		//Candidate的ID
 	LastLogIndex 	int
 	LastLogTerm 	int
 }
@@ -148,8 +146,8 @@ type RequestVoteArgs struct {
 // RequestVoteReply
 // example RequestVote RPC reply structure.
 type RequestVoteReply struct {
-	Term 			int
-	VoteGranted 	bool
+	Term 			int		//节点的当前Term
+	VoteGranted 	bool	//该节点是否投票给发送投票请求的Candidate
 }
 
 // RequestVote
@@ -197,6 +195,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		}
 	}
 	rf.CurrentTerm = args.Term
+	rf.persist()
 }
 
 // sendRequestVote
@@ -224,21 +223,21 @@ func (rf *Raft) sendRequestVote(server int, args RequestVoteArgs, reply *Request
 // AppendEntriesArgs
 // example AppendEntries RPC arguments structure.
 type AppendEntriesArgs struct{
-	Term 			int
-	LeaderID		int
-	PrevLogIndex	int
-	PrevLogTerm 	int
-	Entries 		[]LogEntry
-	LeaderCommit	int
+	Term 			int		//节点当前的Term
+	LeaderID		int		//Leader的ID
+	PrevLogIndex	int		//紧接在新日志之前的日志的Index
+	PrevLogTerm 	int		//紧接在新日志之前的日志的Term
+	Entries 		[]LogEntry	//日志条目（心跳信号为空）
+	LeaderCommit	int		//Leader的CommitIndex
 }
 
 // AppendEntriesReply
 // example AppendEntries RPC reply structure.
 type AppendEntriesReply struct {
-	Term 			int
-	Success			bool
-	ConflictTerm	int
-	MayMatchIndex	int
+	Term 			int		//节点当前的Term
+	Success			bool	//日志是否复制成功
+	ConflictTerm	int		//用于加速找到节点的日志和Leader日志差异的起始位置
+	MayMatchIndex	int		//用于加速找到节点的日志和Leader日志差异的起始位置
 }
 
 
@@ -334,9 +333,10 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	}
 	index := len(rf.Logs)
 	term := rf.CurrentTerm
-	rf.Logs = append(rf.Logs, LogEntry{term, index, command})
+	rf.Logs = append(rf.Logs, LogEntry{term, index, command})	//复制到自身日志中
 	rf.NextIndex[rf.me] = len(rf.Logs)
 	rf.MatchIndex[rf.me] = len(rf.Logs) - 1
+	rf.persist()
 	for server := range rf.peers {
 		if server == rf.me {
 			continue
@@ -345,13 +345,12 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 			if DEBUG {
 				rf.Logger.Printf("prepare %v to %v\n", command, server)
 			}
-			rf.AEChans[server] <- true
+			rf.AEChans[server] <- true	//通知对应的协程可以发送日志复制的请求
 			if DEBUG {
 				rf.Logger.Printf("Send %v to %v\n", command, server)
 			}
 		}
 	}
-
 	return index + 1, term, true
 }
 
@@ -448,14 +447,14 @@ func (rf *Raft) CandidateHandler(){
 	rf.VoteFor = rf.me
 	// send request vote
 	state := make(chan bool)
-	go rf.sendRequestVoteForAllServers(&state)
+	go rf.sendRequestVoteForAllServers(&state) //向其他节点发送投票请求
 	select {
 		case ok := <-state:
 			if ok {
 				if DEBUG {
 					rf.Logger.Printf("I change from a candidate to the leader\n")
 				}
-				rf.becomeLeader()
+				rf.becomeLeader()	//选举成功，成为领导者
 				for server := range rf.peers{
 					if server == rf.me{
 						continue
@@ -464,7 +463,7 @@ func (rf *Raft) CandidateHandler(){
 					go rf.sendAppendEntriesRoutine(server)
 				}
 			}
-		case <-rf.ElectionTimer.C:
+		case <-rf.ElectionTimer.C:	//选举超时，重新开启新一轮选举
 			rf.CurrentTerm = rf.CurrentTerm + 1
 			rf.becomeCandidate()
 	}
@@ -533,7 +532,7 @@ func (rf *Raft) sendRequestVoteForAllServers(state *chan bool) {
 // LeaderHandler
 // handle leader in dead loop
 func (rf *Raft) LeaderHandler(){
-	for range rf.HBCheckTicker.C {
+	for range rf.HBCheckTicker.C {	//定期检测收到心跳信号回复的情况
 		if rf.Role != LEADER {
 			rf.HBCheckTicker.Stop()
 			return
@@ -547,7 +546,7 @@ func (rf *Raft) LeaderHandler(){
 			rf.HBReplyVec[server] = 0
 		}
 		rf.mu.Unlock()
-		if cnt < len(rf.peers) / 2 {
+		if cnt < len(rf.peers) / 2 { //未收到超过半数的回复，自身变为Follower
 			if DEBUG {
 				rf.Logger.Printf("I don't receive many HBReply and become a follower\n")
 			}
@@ -560,7 +559,7 @@ func (rf *Raft) LeaderHandler(){
 
 func (rf *Raft) sendHeartBeat(server int) {
 	HeartBeatTicker := time.NewTicker(HEARTBEAT_INTERVAL * time.Millisecond)
-	for range HeartBeatTicker.C {
+	for range HeartBeatTicker.C { // 每隔一段时间发送一个心跳信号
 		timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
 		if rf.Role != LEADER {
 			if DEBUG {
@@ -576,12 +575,12 @@ func (rf *Raft) sendHeartBeat(server int) {
 		}
 		okCh := make(chan bool)
 		go func() {
-			okCh <- rf.sendAppendEntries(server, args, &reply)
+			okCh <- rf.sendAppendEntries(server, args, &reply) // 发送心跳信号
 		}()
 		select {
-			case ok := <- okCh:
+			case ok := <- okCh:	//收到回复
 				if ok {
-					if reply.Term > rf.CurrentTerm {
+					if reply.Term > rf.CurrentTerm {	//Leader自身已经过时，变为Follower
 						rf.CurrentTerm = reply.Term
 						if DEBUG{
 							rf.Logger.Printf("I out of date and become a follower\n")
@@ -589,11 +588,11 @@ func (rf *Raft) sendHeartBeat(server int) {
 						rf.becomeFollower()
 					} else {
 						rf.mu.Lock()
-						rf.HBReplyVec[server] = 1
+						rf.HBReplyVec[server] = 1	//标记收到server节点的回复
 						rf.mu.Unlock()
 					}
 				}
-			case <- timeout.C:
+			case <- timeout.C:	//超时，认为没有收到回复
 				continue
 		}
 	}
@@ -608,34 +607,35 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 			return
 		}
 		select {
-			case <- rf.AEChans[server]:
-				if DEBUG {
-					rf.Logger.Printf("cmd: %v to %v\n", rf.Logs[len(rf.Logs) - 1].Command, server)
-				}
-				timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
-				args := rf.makeAppendEntriesArg(server, false)
-				var reply AppendEntriesReply
-				okCh := make(chan bool)
-				go func() {
-					okCh <- rf.sendAppendEntries(server, args, &reply)
-				}()
-				select {
-					case ok := <- okCh:
+			case _, ok := <- rf.AEChans[server]:
+				if ok {		//收到信号，开始发送日志复制请求
+					if DEBUG {
+						rf.Logger.Printf("cmd: %v to %v\n", rf.Logs[len(rf.Logs) - 1].Command, server)
+					}
+					timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
+					args := rf.makeAppendEntriesArg(server, false)
+					var reply AppendEntriesReply
+					okCh := make(chan bool)
+					go func() {
+						okCh <- rf.sendAppendEntries(server, args, &reply)
+					}()
+					select {
+					case ok := <- okCh:	//成功收到回复
 						if ok {
-							if reply.Term > rf.CurrentTerm {
+							if reply.Term > rf.CurrentTerm {	//自身已经过时，变为Follower
 								if DEBUG{
 									rf.Logger.Printf("I %v out of date and become a follower with %v\n", rf.CurrentTerm, reply.Term)
 								}
 								rf.CurrentTerm = reply.Term
 								rf.becomeFollower()
 							} else {
-								if reply.Success {
+								if reply.Success {	//日志复制成功
 									if DEBUG {
 										rf.Logger.Printf("add succeed from %v\n", server)
 									}
 									rf.NextIndex[server] = args.PrevLogIndex + 1 + len(args.Entries)
 									rf.MatchIndex[server] = rf.NextIndex[server] - 1
-								} else {
+								} else {	//日志复制失败，更新发送的日志条目，再次发送请求
 									if DEBUG {
 										rf.Logger.Printf("add failed from %v\n", server)
 									}
@@ -647,7 +647,7 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 									go rf.sendAppendEntriesAgain(server)
 								}
 							}
-
+							//更新Leader的CommitIndex
 							for N := len(rf.Logs) - 1; N > rf.CommitIndex; N-- {
 								if rf.Logs[N].Term != rf.CurrentTerm {
 									continue
@@ -668,8 +668,11 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 								rf.Logger.Printf("CommitIndex %v\n", rf.CommitIndex)
 							}
 						}
-					case <- timeout.C:
+					case <- timeout.C:	//未在规定时间内收到回复
 						continue
+					}
+				} else{	//信道关闭，该节点已经不是Leader，协程返回
+					return
 				}
 		}
 	}
@@ -741,15 +744,22 @@ func (rf *Raft) sendAppendEntriesAgain(server int) {
 }
 
 func (rf *Raft) becomeFollower(){
+	if rf.Role == LEADER {
+		for server := range rf.peers {
+			close(rf.AEChans[server])
+		}
+	}
 	rf.Role = FOLLOWER
 	rf.VoteFor = -1
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
+	rf.persist()
 }
 
 func (rf *Raft) becomeCandidate(){
 	rf.Role = CANDIDATE
 	rf.VoteFor = -1
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
+	rf.persist()
 }
 
 func (rf *Raft) becomeLeader(){
@@ -761,6 +771,7 @@ func (rf *Raft) becomeLeader(){
 		rf.AEChans[server] = make(chan bool)
 	}
 	rf.HBCheckTicker = time.NewTicker(HEARTBEAT_CHECK * time.Millisecond)
+	rf.persist()
 }
 
 func (rf *Raft) makeAppendEntriesArg(server int, isHB bool) AppendEntriesArgs {
@@ -790,4 +801,5 @@ func (rf *Raft) Apply(){
 		}
 		rf.LastApplied = rf.CommitIndex
 	}
+	rf.persist()
 }

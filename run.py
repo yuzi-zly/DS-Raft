@@ -35,7 +35,7 @@ def testElection(num):
     for i in range(num):
         cmd = "go test -run Election > testElectionRes/{}.txt".format(str(i))
         os.system(cmd)
-        print("Number " + str(i) + " test is finish\n")
+        print("Number " + str(i) + " test is finish")
         time.sleep(1)
     
     findElectionErrorTests()
