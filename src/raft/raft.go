@@ -70,7 +70,8 @@ type Raft struct {
 	HBCheckTicker	*time.Ticker //Leader专用：计时器，每隔一段时间去检测发出的心跳信号是否收到一半以上回复
 
 	RVReplyChan 	chan *RequestVoteReply //Candidate专用：发出投票请求同步的信道
-	AEChans			[]chan interface{}//用于start时给每个协程发送信号，告知协程可以发送日志
+	AESignalVec		[]interface{} //用于start时给每个协程发送信号，告知协程可以发送日志
+	//AEChans			[]chan interface{}
 	Logger          *log.Logger
 }
 
@@ -92,6 +93,7 @@ const(
 	ELECTION_TIMEOUT_MIN = 200	//选举超时的下限
 	HEARTBEAT_INTERVAL = 100	//发送心跳信号的间隔
 	HEARTBEAT_CHECK = 150		//检测心跳信号回复的间隔
+	AESIGNAL_CHECK = 25
 
 	DEBUG = true
 )
@@ -344,7 +346,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 			if DEBUG {
 				rf.Logger.Printf("prepare %v to %v\n", command, server)
 			}
-			rf.AEChans[server] <- command	//通知对应的协程可以发送日志复制的请求
+			rf.AESignalVec[server] = command //通知对应的协程可以发送日志复制的请求
+			//rf.AEChans[server] <- command
 			if DEBUG {
 				rf.Logger.Printf("Send %v to %v\n", command, server)
 			}
@@ -395,7 +398,8 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.Role = FOLLOWER
 	rf.ElectionTimer = time.NewTimer(RandomElectionTimeOut())
 	rf.HBReplyVec = make([]int, len(rf.peers), len(rf.peers))
-	rf.AEChans = make([]chan interface{}, len(rf.peers), len(rf.peers))
+	rf.AESignalVec = make([]interface{}, len(rf.peers), len(rf.peers))
+	//rf.AEChans = make([]chan interface{}, len(rf.peers), len(rf.peers))
 	rf.Logger = log.New(os.Stdout, fmt.Sprintf("[peer %v] ", rf.me), log.Ldate|log.Lmicroseconds|log.Lshortfile)
 
 	// initialize from state persisted before a crash
@@ -598,84 +602,75 @@ func (rf *Raft) sendHeartBeat(server int) {
 }
 
 func (rf *Raft) sendAppendEntriesRoutine(server int) {
-	for {
-		if rf.Role != LEADER {
+	AESignalTicker := time.NewTicker(AESIGNAL_CHECK * time.Millisecond)
+	for range AESignalTicker.C { //每隔一段时间检查是否需要发送日志
+		if rf.AESignalVec[server] != 0 {//需要发送日志
 			if DEBUG {
-				rf.Logger.Printf("SAER return with %v\n", server)
+				rf.Logger.Printf("cmd signal %v to %v\n", rf.AESignalVec[server], server)
 			}
-			return
-		}
-		select {
-			case cmd, ok := <- rf.AEChans[server]:
-				if ok {		//收到信号，开始发送日志复制请求
-					if DEBUG {
-						rf.Logger.Printf("cmd signal %v to %v\n", cmd, server)
-					}
-					timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
-					args := rf.makeAppendEntriesArg(server, false)
-					var reply AppendEntriesReply
-					okCh := make(chan bool)
-					go func() {
-						okCh <- rf.sendAppendEntries(server, args, &reply)
-					}()
-					select {
-					case ok := <- okCh:	//成功收到回复
-						if ok {
-							if reply.Term > rf.CurrentTerm {	//自身已经过时，变为Follower
-								if DEBUG{
-									rf.Logger.Printf("I %v out of date and become a follower with %v\n", rf.CurrentTerm, reply.Term)
-								}
-								rf.CurrentTerm = reply.Term
-								rf.becomeFollower()
-							} else {
-								if reply.Success {	//日志复制成功
-									if DEBUG {
-										rf.Logger.Printf("add succeed from %v\n", server)
-									}
-									rf.NextIndex[server] = args.PrevLogIndex + 1 + len(args.Entries)
-									rf.MatchIndex[server] = rf.NextIndex[server] - 1
-								} else {	//日志复制失败，更新发送的日志条目，再次发送请求
-									if reply.ConflictTerm != -1 {
-										rf.NextIndex[server] = reply.MayMatchIndex
-									} else {
-										rf.NextIndex[server] = args.PrevLogIndex
-									}
-									if DEBUG {
-										rf.Logger.Printf("add failed from %v and nextIndex %v\n", server, rf.NextIndex[server])
-									}
-									go rf.sendAppendEntriesAgain(server)
-								}
+			timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
+			args := rf.makeAppendEntriesArg(server, false)
+			var reply AppendEntriesReply
+			okCh := make(chan bool)
+			go func() {
+				okCh <- rf.sendAppendEntries(server, args, &reply)
+			}()
+			rf.AESignalVec[server] = 0
+			select {
+			case ok := <- okCh:	//成功收到回复
+				if ok {
+					if reply.Term > rf.CurrentTerm {	//自身已经过时，变为Follower
+						if DEBUG{
+							rf.Logger.Printf("I %v out of date and become a follower with %v\n", rf.CurrentTerm, reply.Term)
+						}
+						rf.CurrentTerm = reply.Term
+						rf.becomeFollower()
+					} else {
+						if reply.Success {	//日志复制成功
+							if DEBUG {
+								rf.Logger.Printf("add succeed from %v\n", server)
 							}
-							//更新Leader的CommitIndex
-							for N := len(rf.Logs) - 1; N > rf.CommitIndex; N-- {
-								if rf.Logs[N].Term != rf.CurrentTerm {
-									continue
-								}
-								cnt := 0
-								for i := range rf.peers {
-									if rf.MatchIndex[i] >= N {
-										cnt++
-									}
-								}
-								if cnt > len(rf.peers)/2 {
-									rf.CommitIndex = N
-									break
-								}
+							rf.NextIndex[server] = args.PrevLogIndex + 1 + len(args.Entries)
+							rf.MatchIndex[server] = rf.NextIndex[server] - 1
+						} else {	//日志复制失败，更新发送的日志条目，再次发送请求
+							if reply.ConflictTerm != -1 {
+								rf.NextIndex[server] = reply.MayMatchIndex
+							} else {
+								rf.NextIndex[server] = args.PrevLogIndex
 							}
 							if DEBUG {
-								rf.Logger.Printf("CommitIndex %v\n", rf.CommitIndex)
+								rf.Logger.Printf("add failed from %v and nextIndex %v\n", server, rf.NextIndex[server])
 							}
-							rf.Apply()
+							rf.sendAppendEntriesAgain(server)
 						}
-					case <- timeout.C:	//未在规定时间内收到回复
-						if(DEBUG){
-							rf.Logger.Printf("cmd signal %v to %v timeout\n", cmd, server)
-						}
-						continue
 					}
-				} else{	//信道关闭，该节点已经不是Leader，协程返回
-					return
+					//更新Leader的CommitIndex
+					for N := len(rf.Logs) - 1; N > rf.CommitIndex; N-- {
+						if rf.Logs[N].Term != rf.CurrentTerm {
+							continue
+						}
+						cnt := 0
+						for i := range rf.peers {
+							if rf.MatchIndex[i] >= N {
+								cnt++
+							}
+						}
+						if cnt > len(rf.peers)/2 {
+							rf.CommitIndex = N
+							break
+						}
+					}
+					if DEBUG {
+						rf.Logger.Printf("CommitIndex %v\n", rf.CommitIndex)
+					}
+					rf.Apply()
 				}
+			case <- timeout.C:	//未在规定时间内收到回复
+				if DEBUG {
+					rf.Logger.Printf("cmd signal %v to %v timeout\n", rf.AESignalVec[server], server)
+				}
+				continue
+			}
 		}
 	}
 }
@@ -746,11 +741,6 @@ func (rf *Raft) sendAppendEntriesAgain(server int) {
 }
 
 func (rf *Raft) becomeFollower(){
-	if rf.Role == LEADER {
-		for server := range rf.peers {
-			close(rf.AEChans[server])
-		}
-	}
 	rf.Role = FOLLOWER
 	rf.VoteFor = -1
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
@@ -768,7 +758,7 @@ func (rf *Raft) becomeLeader(){
 		rf.HBReplyVec[server] = 0
 		rf.NextIndex[server] = len(rf.Logs)
 		rf.MatchIndex[server] = -1
-		rf.AEChans[server] = make(chan interface{})
+		rf.AESignalVec[server] = 0
 	}
 	rf.HBCheckTicker = time.NewTicker(HEARTBEAT_CHECK * time.Millisecond)
 }

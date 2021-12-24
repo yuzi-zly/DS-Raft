@@ -94,6 +94,28 @@ def testAgree(num):
 
     os.chdir("../")
     cleanAgree()
+    print("test Rejoin")
+    for i in range(num):
+        cmd = "go test -run Rejoin > testAgreeRes/{}.txt".format(str(i))
+        os.system(cmd)
+        print("Number " + str(i) + " test is finish")
+        time.sleep(1)
+    findAgreeErrorTests()
+    print("")
+
+    os.chdir("../")
+    cleanAgree()
+    print("test Backup")
+    for i in range(num):
+        cmd = "go test -run Backup > testAgreeRes/{}.txt".format(str(i))
+        os.system(cmd)
+        print("Number " + str(i) + " test is finish")
+        time.sleep(1)
+    findAgreeErrorTests()
+    print("")
+
+    os.chdir("../")
+    cleanAgree()
     print("test Count")
     for i in range(num):
         cmd = "go test -run Count > testAgreeRes/{}.txt".format(str(i))
