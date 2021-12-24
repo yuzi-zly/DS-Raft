@@ -312,7 +312,7 @@ func TestRejoin(t *testing.T) {
 	fmt.Printf("%v disconnect\n", leader1)
 	// make old leader try to agree on some entries
 	cfg.rafts[leader1].Start(102)
-	cfg.rafts[leader1].Start(103)
+	cfg.rafts[leader1].Start(110)
 	cfg.rafts[leader1].Start(104)
 
 	// new leader commits, also for index=2
@@ -352,6 +352,7 @@ func TestBackup(t *testing.T) {
 	cfg.disconnect((leader1 + 2) % servers)
 	cfg.disconnect((leader1 + 3) % servers)
 	cfg.disconnect((leader1 + 4) % servers)
+	fmt.Printf("zly1 %v, %v and %v disconnect\n", (leader1 + 2) % servers, (leader1 + 3) % servers, (leader1 + 4) % servers)
 
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
@@ -362,11 +363,15 @@ func TestBackup(t *testing.T) {
 
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
+	fmt.Printf("zly2 %v and %v disconnect\n", (leader1 + 0) % servers, (leader1 + 1) % servers)
+
 
 	// allow other partition to recover
 	cfg.connect((leader1 + 2) % servers)
 	cfg.connect((leader1 + 3) % servers)
 	cfg.connect((leader1 + 4) % servers)
+	fmt.Printf("zly3 %v, %v and %v connect\n", (leader1 + 2) % servers, (leader1 + 3) % servers, (leader1 + 4) % servers)
+
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
@@ -380,6 +385,8 @@ func TestBackup(t *testing.T) {
 		other = (leader2 + 1) % servers
 	}
 	cfg.disconnect(other)
+	fmt.Printf("zly4 %v disconnect and leader is %v\n", other, leader2)
+
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
@@ -395,6 +402,9 @@ func TestBackup(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	fmt.Printf("zly5 %v, %v and %v connect\n", (leader1 + 0) % servers, (leader1 + 1) % servers, other)
+
+
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
@@ -405,6 +415,8 @@ func TestBackup(t *testing.T) {
 	for i := 0; i < servers; i++ {
 		cfg.connect(i)
 	}
+	fmt.Printf("all connect\n")
+
 	cfg.one(rand.Int(), servers)
 
 	fmt.Printf("  ... Passed\n")

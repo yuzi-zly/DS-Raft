@@ -18,8 +18,6 @@ package raft
 //
 
 import (
-	"bytes"
-	"encoding/gob"
 	"fmt"
 	"log"
 	"math/rand"
@@ -72,7 +70,7 @@ type Raft struct {
 	HBCheckTicker	*time.Ticker //Leader专用：计时器，每隔一段时间去检测发出的心跳信号是否收到一半以上回复
 
 	RVReplyChan 	chan *RequestVoteReply //Candidate专用：发出投票请求同步的信道
-	AEChans			[]chan bool	//用于start时给每个协程发送信号，告知协程可以发送日志
+	AEChans			[]chan interface{}//用于start时给每个协程发送信号，告知协程可以发送日志
 	Logger          *log.Logger
 }
 
@@ -113,24 +111,24 @@ func (rf *Raft) GetState() (int, bool) {
 // see paper's Figure 2 for a description of what should be persistent.
 //
 func (rf *Raft) persist() {
-	w := new(bytes.Buffer)
-	e := gob.NewEncoder(w)
-	e.Encode(rf.CurrentTerm)
-	e.Encode(rf.VoteFor)
-	e.Encode(rf.Logs)
-	rf.persister.SaveRaftState(w.Bytes())
+	//w := new(bytes.Buffer)
+	//e := gob.NewEncoder(w)
+	//e.Encode(rf.CurrentTerm)
+	//e.Encode(rf.VoteFor)
+	//e.Encode(rf.Logs)
+	//rf.persister.SaveRaftState(w.Bytes())
 }
 
 // readPersist
 // restore previously persisted state.
 func (rf *Raft) readPersist(data []byte) {
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
-	r := bytes.NewBuffer(data)
-	d := gob.NewDecoder(r)
-	d.Decode(&rf.CurrentTerm)
-	d.Decode(&rf.VoteFor)
-	d.Decode(&rf.Logs)
+	//rf.mu.Lock()
+	//defer rf.mu.Unlock()
+	//r := bytes.NewBuffer(data)
+	//d := gob.NewDecoder(r)
+	//d.Decode(&rf.CurrentTerm)
+	//d.Decode(&rf.VoteFor)
+	//d.Decode(&rf.Logs)
 
 }
 
@@ -179,8 +177,10 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		}
 	}
 	//投票
-	if (args.Term > rf.CurrentTerm) ||
-		(args.Term == rf.CurrentTerm && (args.CandidateId == rf.VoteFor || rf.VoteFor == -1)) {
+	if ((args.Term > rf.CurrentTerm) ||
+		(args.Term == rf.CurrentTerm && (args.CandidateId == rf.VoteFor || rf.VoteFor == -1))) &&
+		(len(rf.Logs) == 0 || args.LastLogTerm > rf.Logs[len(rf.Logs) - 1].Term ||
+			(args.LastLogTerm == rf.Logs[len(rf.Logs) - 1].Term && args.LastLogIndex >= len(rf.Logs) - 1)){
 		reply.Term = rf.CurrentTerm
 		reply.VoteGranted = true
 		rf.VoteFor = args.CandidateId
@@ -195,7 +195,6 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		}
 	}
 	rf.CurrentTerm = args.Term
-	rf.persist()
 }
 
 // sendRequestVote
@@ -239,7 +238,6 @@ type AppendEntriesReply struct {
 	ConflictTerm	int		//用于加速找到节点的日志和Leader日志差异的起始位置
 	MayMatchIndex	int		//用于加速找到节点的日志和Leader日志差异的起始位置
 }
-
 
 func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
@@ -298,8 +296,8 @@ func (rf *Raft) AppendEntries(args AppendEntriesArgs, reply *AppendEntriesReply)
 			} else {
 				rf.CommitIndex = args.LeaderCommit
 			}
+			rf.Apply()
 		}
-		rf.Apply()
 		if DEBUG {
 			rf.Logger.Printf("%v LogNum %v, commitIndex %v\n", rf.me, len(rf.Logs), rf.CommitIndex)
 		}
@@ -325,6 +323,8 @@ func (rf *Raft) sendAppendEntries(server int, args AppendEntriesArgs, reply *App
 // the leader.
 //
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	if rf.Role != LEADER {
 		if DEBUG {
 			rf.Logger.Printf("I am not Leader so I cannot Start\n")
@@ -336,7 +336,6 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.Logs = append(rf.Logs, LogEntry{term, index, command})	//复制到自身日志中
 	rf.NextIndex[rf.me] = len(rf.Logs)
 	rf.MatchIndex[rf.me] = len(rf.Logs) - 1
-	rf.persist()
 	for server := range rf.peers {
 		if server == rf.me {
 			continue
@@ -345,7 +344,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 			if DEBUG {
 				rf.Logger.Printf("prepare %v to %v\n", command, server)
 			}
-			rf.AEChans[server] <- true	//通知对应的协程可以发送日志复制的请求
+			rf.AEChans[server] <- command	//通知对应的协程可以发送日志复制的请求
 			if DEBUG {
 				rf.Logger.Printf("Send %v to %v\n", command, server)
 			}
@@ -396,7 +395,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.Role = FOLLOWER
 	rf.ElectionTimer = time.NewTimer(RandomElectionTimeOut())
 	rf.HBReplyVec = make([]int, len(rf.peers), len(rf.peers))
-	rf.AEChans = make([]chan bool, len(rf.peers), len(rf.peers))
+	rf.AEChans = make([]chan interface{}, len(rf.peers), len(rf.peers))
 	rf.Logger = log.New(os.Stdout, fmt.Sprintf("[peer %v] ", rf.me), log.Ldate|log.Lmicroseconds|log.Lshortfile)
 
 	// initialize from state persisted before a crash
@@ -607,10 +606,10 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 			return
 		}
 		select {
-			case _, ok := <- rf.AEChans[server]:
+			case cmd, ok := <- rf.AEChans[server]:
 				if ok {		//收到信号，开始发送日志复制请求
 					if DEBUG {
-						rf.Logger.Printf("cmd: %v to %v\n", rf.Logs[len(rf.Logs) - 1].Command, server)
+						rf.Logger.Printf("cmd signal %v to %v\n", cmd, server)
 					}
 					timeout := time.NewTimer(HEARTBEAT_INTERVAL * time.Millisecond)
 					args := rf.makeAppendEntriesArg(server, false)
@@ -636,13 +635,13 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 									rf.NextIndex[server] = args.PrevLogIndex + 1 + len(args.Entries)
 									rf.MatchIndex[server] = rf.NextIndex[server] - 1
 								} else {	//日志复制失败，更新发送的日志条目，再次发送请求
-									if DEBUG {
-										rf.Logger.Printf("add failed from %v\n", server)
-									}
 									if reply.ConflictTerm != -1 {
 										rf.NextIndex[server] = reply.MayMatchIndex
 									} else {
 										rf.NextIndex[server] = args.PrevLogIndex
+									}
+									if DEBUG {
+										rf.Logger.Printf("add failed from %v and nextIndex %v\n", server, rf.NextIndex[server])
 									}
 									go rf.sendAppendEntriesAgain(server)
 								}
@@ -663,12 +662,15 @@ func (rf *Raft) sendAppendEntriesRoutine(server int) {
 									break
 								}
 							}
-							rf.Apply()
 							if DEBUG {
 								rf.Logger.Printf("CommitIndex %v\n", rf.CommitIndex)
 							}
+							rf.Apply()
 						}
 					case <- timeout.C:	//未在规定时间内收到回复
+						if(DEBUG){
+							rf.Logger.Printf("cmd signal %v to %v timeout\n", cmd, server)
+						}
 						continue
 					}
 				} else{	//信道关闭，该节点已经不是Leader，协程返回
@@ -706,13 +708,13 @@ func (rf *Raft) sendAppendEntriesAgain(server int) {
 						rf.NextIndex[server] = args.PrevLogIndex + 1 + len(args.Entries)
 						rf.MatchIndex[server] = rf.NextIndex[server] - 1
 					} else {
-						if DEBUG {
-							rf.Logger.Printf("add failed from %v\n", server)
-						}
 						if reply.ConflictTerm != -1 {
 							rf.NextIndex[server] = reply.MayMatchIndex
 						} else {
 							rf.NextIndex[server] = args.PrevLogIndex
+						}
+						if DEBUG {
+							rf.Logger.Printf("add failed from %v and nextIndex %v\n", server, rf.NextIndex[server])
 						}
 						rf.sendAppendEntriesAgain(server)
 					}
@@ -733,10 +735,10 @@ func (rf *Raft) sendAppendEntriesAgain(server int) {
 						break
 					}
 				}
-				rf.Apply()
 				if DEBUG {
 					rf.Logger.Printf("CommitIndex %v\n", rf.CommitIndex)
 				}
+				rf.Apply()
 			}
 		case <- timeout.C:
 			return
@@ -752,14 +754,12 @@ func (rf *Raft) becomeFollower(){
 	rf.Role = FOLLOWER
 	rf.VoteFor = -1
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
-	rf.persist()
 }
 
 func (rf *Raft) becomeCandidate(){
 	rf.Role = CANDIDATE
 	rf.VoteFor = -1
 	rf.ElectionTimer.Reset(RandomElectionTimeOut())
-	rf.persist()
 }
 
 func (rf *Raft) becomeLeader(){
@@ -768,10 +768,9 @@ func (rf *Raft) becomeLeader(){
 		rf.HBReplyVec[server] = 0
 		rf.NextIndex[server] = len(rf.Logs)
 		rf.MatchIndex[server] = -1
-		rf.AEChans[server] = make(chan bool)
+		rf.AEChans[server] = make(chan interface{})
 	}
 	rf.HBCheckTicker = time.NewTicker(HEARTBEAT_CHECK * time.Millisecond)
-	rf.persist()
 }
 
 func (rf *Raft) makeAppendEntriesArg(server int, isHB bool) AppendEntriesArgs {
@@ -781,10 +780,18 @@ func (rf *Raft) makeAppendEntriesArg(server int, isHB bool) AppendEntriesArgs {
 	args.PrevLogIndex = rf.NextIndex[server] - 1
 	if args.PrevLogIndex >= 0 {
 		args.PrevLogTerm = rf.Logs[args.PrevLogIndex].Term
+		if !isHB{
+			if DEBUG{
+				rf.Logger.Printf("to %v: prevIndex %v prevTerm %v\n", server, args.PrevLogIndex, args.PrevLogTerm)
+			}
+		}
 	}
 	if !isHB {
 		for i := rf.NextIndex[server]; i < len(rf.Logs) ; i++ {
 			args.Entries = append(args.Entries, LogEntry{rf.Logs[i].Term, rf.Logs[i].Index, rf.Logs[i].Command})
+		}
+		if DEBUG{
+			rf.Logger.Printf("Logs %v\n", args.Entries)
 		}
 	}
 	args.LeaderCommit = rf.CommitIndex
@@ -798,8 +805,10 @@ func (rf *Raft) Apply(){
 			applyMsg.Index = i + 1
 			applyMsg.Command = rf.Logs[i].Command
 			*rf.applyChan <- applyMsg
+			if DEBUG{
+				rf.Logger.Printf("%v apply %v\n", rf.me, applyMsg.Command)
+			}
 		}
 		rf.LastApplied = rf.CommitIndex
 	}
-	rf.persist()
 }
