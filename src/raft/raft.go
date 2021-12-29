@@ -93,9 +93,9 @@ const(
 	ELECTION_TIMEOUT_MIN = 200	//选举超时的下限
 	HEARTBEAT_INTERVAL = 100	//发送心跳信号的间隔
 	HEARTBEAT_CHECK = 150		//检测心跳信号回复的间隔
-	AESIGNAL_CHECK = 25
+	AESIGNAL_CHECK = 25			//检查是否需要发送日志的间隔
 
-	DEBUG = true
+	DEBUG = false
 )
 
 // GetState
